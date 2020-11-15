@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Application.Controllers
 {
@@ -16,6 +17,7 @@ namespace Api.Application.Controllers
         {
             _service = service;
         }
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -33,7 +35,7 @@ namespace Api.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}", Name = "GetById")]
         public async Task<ActionResult> GetById(Guid id)
@@ -52,7 +54,7 @@ namespace Api.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserEntity user)
         {
@@ -78,7 +80,7 @@ namespace Api.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpPut]
         public async Task<ActionResult> Put([FromBody] UserEntity user)
         {
@@ -104,7 +106,7 @@ namespace Api.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
+        [Authorize("Bearer")]
         [HttpDelete]
         [Route("{id}", Name = "Delete")]
         public async Task<ActionResult> Delete(Guid id)
